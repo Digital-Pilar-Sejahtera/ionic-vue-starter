@@ -8,7 +8,7 @@ import { TokenService } from "@/services/token.service";
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/tabs/user'
   },
   {
     path: '/tabs/',
@@ -16,19 +16,23 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: 'tab1'
+        redirect: 'user'
       },
       {
-        path: 'tab1',
-        component: () => import('@/views/Tab1.vue')
+        path: 'user',
+        component: () => import('@/views/TabUser.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
+        path: 'Camera',
+        component: () => import('@/views/TabCamera.vue')
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        path: 'geolocation',
+        component: () => import('@/views/TabGeolocation.vue')
+      },
+      {
+        path: 'account',
+        component: () => import('@/views/TabAccount.vue')
       }
     ]
   },
@@ -70,7 +74,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (loggedIn && onlyWhenLoggedOut) {
-    return next("/tabs/tab1");
+    return next("/tabs/user");
   }
 
   next();

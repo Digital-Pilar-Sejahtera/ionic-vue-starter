@@ -6,7 +6,8 @@ const state = {
     accessToken: TokenService.getToken(),
     authenticationErrorCode: 0,
     authenticationError: "",
-    refreshTokenPromise: null
+    refreshTokenPromise: null,
+    user: {}
 };
 
 const getters = {
@@ -20,6 +21,10 @@ const getters = {
 
     authenticating: (state: { authenticating: any }) => {
         return state.authenticating;
+    },
+    
+    user: (state: { user: any }) => {
+        return state.user;
     }
 };
 
@@ -40,6 +45,10 @@ const actions = {
                 }
             });
         });
+    },
+
+    setUserData(context: any, user: any) {
+        context.commit("setUserData", user);
     },
 
     signOut(context: any) {
@@ -104,9 +113,11 @@ const mutations = {
     signInSuccess(state: {
         accessToken: any;
         authenticating: boolean;
-    }, accessToken: any) {
-        state.accessToken = accessToken;
+        user: any;
+    }, data: { accessToken: any; user: any }) {
+        state.accessToken = data.accessToken;
         state.authenticating = false;
+        state.user = data.user;
     },
 
     signInError(state: {
@@ -119,8 +130,9 @@ const mutations = {
         state.authenticationError = errorMessage;
     },
 
-    signOutRequest(state: { authenticating: boolean }) {
+    signOutRequest(state: { authenticating: boolean; user: any }) {
         state.authenticating = false;
+        state.user = {};
     },
 
     refreshTokenPromise(state: { refreshTokenPromise: any }, promise: any) {
@@ -133,6 +145,10 @@ const mutations = {
 
     setAuthenticatingStatus(state: { authenticating: any }, status: any) {
         state.authenticating = status;
+    },
+    
+    setUserData(state: { user: any }, userData: any) {
+        state.user = userData;
     }
 };
 

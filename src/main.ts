@@ -23,7 +23,8 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import ApiService from "@/services/api.service";
-import {TokenService} from "@/services/token.service";
+import {AuthService} from "@/services/auth.service";
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 const app = createApp(App)
     .use(IonicVue)
@@ -32,12 +33,10 @@ const app = createApp(App)
 
 ApiService.init(process.env.VUE_APP_ROOT_API);
 
-if (TokenService.getToken()) {
-  ApiService.setHeader();
-  ApiService.mountRequestInterceptor();
-  ApiService.mount401Interceptor();
-}
-  
-router.isReady().then(() => {
-  app.mount('#app');
-});
+AuthService.authCheck()
+  .then(() => {
+    router.isReady().then(() => {
+      app.mount('#app');
+      defineCustomElements(window);
+    });
+  })

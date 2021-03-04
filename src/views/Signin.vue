@@ -68,7 +68,7 @@ export default {
       this.signIn(this.form).then(() => {
         this.form.username = ""
         this.form.password = ""
-        this.router.push("/tabs/tab1")
+        this.router.push("/tabs/user")
       }).catch(async (err: any) => {
         const errorAlert = await alertController
             .create({
