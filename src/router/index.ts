@@ -4,6 +4,8 @@ import Tabs from '../views/Tabs.vue'
 import SignIn from "@/views/Signin.vue";
 import Signup from "@/views/Signup.vue";
 import { TokenService } from "@/services/token.service";
+import UserDetail from '@/views/UserDetail.vue';
+import UserCreate from '@/views/UserCreate.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -51,6 +53,14 @@ const routes: Array<RouteRecordRaw> = [
       public: true,
       onlyWhenLoggedOut: true
     }
+  },
+  {
+    path: '/user/detail/:id',
+    component: UserDetail
+  },
+  {
+    path: '/user/create',
+    component: UserCreate
   }
 ]
 
